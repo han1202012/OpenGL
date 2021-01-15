@@ -1,5 +1,6 @@
 ﻿// OpenGL.cpp : 定义应用程序的入口点。
 // 窗口程序入口
+// 代码提交测试
 
 #include "framework.h"
 #include "OpenGL.h"
