@@ -31,13 +31,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // 初始化全局字符串
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_OPENGL, szWindowClass, MAX_LOADSTRING);
+
+    // 注册窗口
     MyRegisterClass(hInstance);
 
     // 执行应用程序初始化:
+    // 创建窗口
     if (!InitInstance (hInstance, nCmdShow))
     {
         return FALSE;
     }
+
+    // 下面的逻辑是一个死循环 , 避免让窗口退出 
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_OPENGL));
 
@@ -65,22 +70,35 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 //
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
+    // 注册窗口的结构体
     WNDCLASSEXW wcex;
 
+    // 设置结构体的大小
     wcex.cbSize = sizeof(WNDCLASSEX);
-
+    // 窗口风格 , CS 是 Class Style 缩写 , VREDRAW 垂直重绘 , HREDRAW 水平重绘
     wcex.style          = CS_HREDRAW | CS_VREDRAW;
+    // 消息响应函数 , 鼠标点击窗口 , 或打字字后的回调函数
     wcex.lpfnWndProc    = WndProc;
+    // 不需要额外的空间
     wcex.cbClsExtra     = 0;
+    // 不需要额外的空间
     wcex.cbWndExtra     = 0;
+    // 设置程序的实例, 通过桌面程序入口函数传入
     wcex.hInstance      = hInstance;
+    // 生成的程序在文件夹中的样式 , 可执行程序的图标
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_OPENGL));
+    // 设置鼠标光标样式
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
+    // 设置背景
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
+    // 菜单
     wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_OPENGL);
+    // 窗口的唯一标识符
     wcex.lpszClassName  = szWindowClass;
+    // 设置窗口运行后显示在右上角的图标
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
+    // 设置完上述参数后 , 最后调用该方法注册窗口
     return RegisterClassExW(&wcex);
 }
 
@@ -98,14 +116,27 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 将实例句柄存储在全局变量中
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+   // 创建窗口的核心逻辑
+   HWND hWnd = CreateWindowW(
+       szWindowClass,       // 窗口主类
+       szTitle,             // 窗口标题名称
+       WS_OVERLAPPEDWINDOW, // 窗口风格
+       100 ,                // x 坐标
+       100 ,                // y 坐标
+       800,                 // 宽度
+       600,                 // 高度
+       nullptr,             // 父窗口 
+       nullptr,             // 菜单
+       hInstance,           // 程序实体
+       nullptr);
 
+   // 如果创建失败 , 直接退出
    if (!hWnd)
    {
       return FALSE;
    }
 
+   // 显示窗口
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
