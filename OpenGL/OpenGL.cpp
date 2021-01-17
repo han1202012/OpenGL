@@ -5,6 +5,14 @@
 #include "framework.h"
 #include "OpenGL.h"
 
+// 导入 OpenGL 的个头文件 , 必须先导入 windows.h 头文件之后再导入 opengl 头文件
+#include <gl/GL.h>
+#include <gl/GLU.h>
+
+// 链接 OpenGL 库
+#pragma comment(lib, "opengl32.lib")
+#pragma comment(lib, "glu32.lib")
+
 #define MAX_LOADSTRING 100
 
 // 全局变量:
@@ -17,6 +25,10 @@ ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
+
+// 窗口设备
+// 提取到全局变量中 
+HDC dc = NULL;
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -56,6 +68,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
+
+		// 渲染场景
+
+		// 清除缓冲区 , 
+		// 使用之前设置的 glClearColor(1.0, 0.0, 0.0, 1.0) 擦除颜色缓冲区
+		// 红色背景
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		// 将后缓冲区绘制到前台
+		SwapBuffers(dc);
+
     }
 
     return (int) msg.wParam;
@@ -90,6 +113,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     // 设置鼠标光标样式
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     // 设置背景
+    //wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
     // 菜单
     wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_OPENGL);
@@ -135,6 +159,56 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    {
       return FALSE;
    }
+
+
+   // 创建 OpenGL 的渲染上下文
+
+   // 获取窗口设备 
+   dc = GetDC(hWnd);
+
+   // 颜色描述符, 像素格式描述符 , 选取 OpenGL 渲染的像素格式
+   PIXELFORMATDESCRIPTOR pfd;
+
+   // 将 PIXELFORMATDESCRIPTOR 结构体清空
+   memset(&pfd, 0, sizeof(PIXELFORMATDESCRIPTOR));
+
+   // 填充结构体
+
+   // 设置版本号
+   pfd.nVersion = 1;
+   // 结构体大小
+   pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
+   // 颜色缓冲区 32 位
+   pfd.cColorBits = 32;
+   // 深度缓冲区 24 位
+   pfd.cDepthBits = 24;
+   pfd.cStencilBits = 8;
+   // 颜色格式
+   pfd.iPixelType = PFD_TYPE_RGBA;
+   pfd.iLayerType = PFD_MAIN_PLANE;
+
+   // 分别设置 绘制到桌面窗口 , OpenGL 支持 , 双缓冲 标志位 
+   // 双缓冲区可以让画面更流畅 
+   pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
+
+   // 选择像素格式 , 如果返回 -1 , 说明选择像素格式失败 , 一般情况下该选择是成功的 
+   int pixelFormat = ChoosePixelFormat(dc, &pfd);
+
+   // 设置像素格式
+   SetPixelFormat(dc, pixelFormat, &pfd);
+
+   // 创建 OpenGL 上下文对象 , 注意该操作必须在设置完像素格式后进行操作
+   HGLRC rc = wglCreateContext(dc);
+
+   // 设置 OpenGL 上下文对象 , 将 rc 和 dc 作为当前的渲染设备
+   wglMakeCurrent(dc, rc); 
+
+   // 设置清除缓冲区背景颜色
+   // glClearColor (GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha)
+   // 对应的参数是 红色 , 绿色 , 蓝色 , 透明度
+   // 这里设置的是红色
+   glClearColor(1.0, 0.0, 0.0, 1.0);
+
 
    // 显示窗口
    ShowWindow(hWnd, nCmdShow);
