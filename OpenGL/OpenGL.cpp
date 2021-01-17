@@ -76,6 +76,30 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		// 红色背景
 		glClear(GL_COLOR_BUFFER_BIT);
 
+        // 设置当前的绘制颜色 , 4 个 unsigned byte 
+        // 每个颜色的分量占一个字节
+        // 参数数据是 R 红色 G 绿色 B 蓝色 A 透明度
+        // 下面设置的含义是白色, 绘制点的时候, 每次都使用白色绘制
+        glColor4ub(255, 255, 255, 255);
+
+        // 设置绘制点的大小 20 像素
+        glPointSize(20.0f);
+
+        // 绘制点时, 会将从 glBegin 到 glEnd 之间的所有的点都绘制出来
+        // 可以调用 glVertex3f 方法设置多个点
+        // 绘制点开始
+        glBegin(GL_POINTS);
+
+        // 设置绘制点的位置
+        glVertex3f(0.0f, 0.0f, -0.5f);
+
+        // 绘制点结束
+        glEnd();
+
+
+
+
+
 		// 将后缓冲区绘制到前台
 		SwapBuffers(dc);
 
@@ -208,6 +232,18 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    // 对应的参数是 红色 , 绿色 , 蓝色 , 透明度
    // 这里设置的是红色
    glClearColor(1.0, 0.0, 0.0, 1.0);
+
+
+   // 矩阵环境初始化 , 主要是投影矩阵和模型矩阵 
+
+   // ( 选中投影矩阵 ) 设置矩阵模式 , 告知 GPU 当前要操作的矩阵是投影矩阵
+   glMatrixMode(GL_PROJECTION);
+   // ( 给投影矩阵设置值 ) 向投影矩阵设置参数
+   gluPerspective(50.0f, 800.0f / 600.0f, 0.1f, 1000.0f);
+
+   // ( 选中模型矩阵 )
+   glMatrixMode(GL_MODELVIEW);
+   glLoadIdentity();
 
 
    // 显示窗口
