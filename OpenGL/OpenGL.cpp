@@ -239,10 +239,17 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    // ( 选中投影矩阵 ) 设置矩阵模式 , 告知 GPU 当前要操作的矩阵是投影矩阵
    glMatrixMode(GL_PROJECTION);
    // ( 给投影矩阵设置值 ) 向投影矩阵设置参数
+   // 参数一 : 50.0f 是摄像机的视口角度
+   // 参数二 : 800.0f / 600.0f 是窗口的宽高比
+   // 参数三 : 0.1f , 可视的最近的距离
+   // 参数四 : 1000.0f , 可视的最远距离
    gluPerspective(50.0f, 800.0f / 600.0f, 0.1f, 1000.0f);
+
+   // 上述设置好了摄像机的参数 , 具体的摄像机能看什么东西 , 就需要模型视图矩阵设置
 
    // ( 选中模型矩阵 )
    glMatrixMode(GL_MODELVIEW);
+   // ( 设置模型矩阵值 ) , 这里设置的是单位矩阵
    glLoadIdentity();
 
 
