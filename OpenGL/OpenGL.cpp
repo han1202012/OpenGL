@@ -98,8 +98,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 
 
-
-
 		// 将后缓冲区绘制到前台
 		SwapBuffers(dc);
 
