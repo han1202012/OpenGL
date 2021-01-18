@@ -82,23 +82,40 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         // 下面设置的含义是白色, 绘制点的时候, 每次都使用白色绘制
         glColor4ub(255, 255, 255, 255);
 
-        // 设置绘制点的大小 20 像素
-        glPointSize(20.0f);
+		// 设置线的宽度 
+		glLineWidth(2.0f);
 
-        // 绘制点时, 会将从 glBegin 到 glEnd 之间的所有的点都绘制出来
-        // 可以调用 glVertex3f 方法设置多个点
-        // 绘制点开始
-        glBegin(GL_POINTS);
-
-        // 设置绘制点的位置
+        // 绘制线时, 会将从 glBegin 到 glEnd 之间的所有的点都绘制出来
+        // 可以调用 glVertex3f 方法 成对 设置多条线
+		// 注意必须成对设置 , 如果设置奇数个点 , 最后一个点会被丢弃
+        // 绘制线段开始
+        //glBegin(GL_LINES);
+		//glBegin(GL_LINE_STRIP);
+        glBegin(GL_LINE_LOOP);
+        
+        // 绘制线 , 每两个点组成一条线
+		// glVertex3f (GLfloat x, GLfloat y, GLfloat z)
         glVertex3f(0.0f, 0.0f, -10.0f);
+
+		// 设置绿色 
+		glColor4ub(0, 255, 0, 255);
+
         glVertex3f(-5.0f, 0.0f, -10.0f);
-        glVertex3f(5.0f, 0.0f, -10.0f);
+
+		// 上面的设置会从 (0,0,-10) 坐标向 (-5,0,-10) 坐标绘制一条线
+
+		// 设置蓝色
+		glColor4ub(0, 0, 255, 255);
+
+        //glVertex3f(-5.0f, 0.0f, -10.0f);
+        glVertex3f(-5.0f, -2.0f, -10.0f);
+
+		glColor4ub(255, 255, 255, 255);
+
+		// 上面的设置会从 (-5,0,-10) 坐标向 (-5,-2,-10) 坐标绘制一条线
 
         // 绘制点结束
         glEnd();
-
-
 
 		// 将后缓冲区绘制到前台
 		SwapBuffers(dc);
