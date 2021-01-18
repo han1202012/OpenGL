@@ -91,7 +91,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         glBegin(GL_POINTS);
 
         // 设置绘制点的位置
-        glVertex3f(0.0f, 0.0f, -0.5f);
+        glVertex3f(0.0f, 0.0f, -10.0f);
+        glVertex3f(-5.0f, 0.0f, -10.0f);
+        glVertex3f(5.0f, 0.0f, -10.0f);
 
         // 绘制点结束
         glEnd();
