@@ -61,7 +61,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MSG msg;
 
 	// 只显示正面 , 不显示背面
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 
 	// 设置顺时针方向 CW : Clock Wind 顺时针方向
 	// 默认是 GL_CCW : Counter Clock Wind 逆时针方向 
@@ -98,39 +98,25 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         //glBegin(GL_LINE_LOOP); // 绘制前后连接的点组成的线 , 并且收尾相连
 
 		// 绘制三角形面
-        glBegin(GL_TRIANGLES);
+        glBegin(GL_TRIANGLE_STRIP);
         
 		// 第一个三角形 ( 注意点是顺时针排列的 )
 
-		// 设置白色 , glVertex3f (GLfloat x, GLfloat y, GLfloat z)
+		// 1. 设置白色 , glVertex3f (GLfloat x, GLfloat y, GLfloat z)
 		glColor4ub(255, 255, 255, 255);
         glVertex3f(0.0f, 0.0f, -10.0f);
 
-		// 设置蓝色
+		// 2. 设置蓝色
 		glColor4ub(0, 0, 255, 255);
 		glVertex3f(-5.0f, -2.0f, -10.0f);
 
-		// 设置绿色 
+		// 3. 设置绿色 
 		glColor4ub(0, 255, 0, 255);
         glVertex3f(-5.0f, 0.0f, -10.0f);
 
-		// 第二个三角形 ( 注意点是顺时针排列的 )
-
-		// 设置白色 , glVertex3f (GLfloat x, GLfloat y, GLfloat z)
+		// 4. 设置白色 , glVertex3f (GLfloat x, GLfloat y, GLfloat z)
 		glColor4ub(255, 255, 255, 255);
-		glVertex3f(0.0f, 0.0f, -10.0f);
-
-		// 设置绿色 
-		glColor4ub(0, 255, 0, 255);
-		glVertex3f(5.0f, 0.0f, -10.0f);
-
-		// 设置蓝色
-		glColor4ub(0, 0, 255, 255);
-		glVertex3f(5.0f, -2.0f, -10.0f);
-
-		
-
-		
+		glVertex3f(0.0f, -2.0f, -10.0f);
 
         // 绘制三角形结束
         glEnd();
