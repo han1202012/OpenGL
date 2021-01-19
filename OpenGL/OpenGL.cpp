@@ -101,7 +101,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		//glBegin(GL_TRIANGLE_FAN);	// 绘制三角形扇
 
 		// 绘制四边形
-        glBegin(GL_QUADS);
+        glBegin(GL_QUAD_STRIP);
 
 		// 1. 设置白色 , glVertex3f (GLfloat x, GLfloat y, GLfloat z)
 		glColor4ub(255, 255, 255, 255);
@@ -119,23 +119,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		glColor4ub(0, 255, 0, 255);
 		glVertex3f(0.0f, -2.0f, -10.0f);
 
-		// 上面绘制的是第一个四边形 , 下面是第二个四边形
 
-		// 1. 设置白色 , glVertex3f (GLfloat x, GLfloat y, GLfloat z)
+
+		// 5. 设置白色 , glVertex3f (GLfloat x, GLfloat y, GLfloat z)
 		glColor4ub(255, 255, 255, 255);
 		glVertex3f(0.0f, 4.0f, -10.0f);
 
-		// 2. 设置绿色 
+		// 6. 设置绿色 
 		glColor4ub(0, 255, 0, 255);
 		glVertex3f(-5.0f, 4.0f, -10.0f);
-
-		// 3. 设置蓝色
-		glColor4ub(0, 0, 255, 255);
-		glVertex3f(-5.0f, 2.0f, -10.0f);
-
-		// 4. 设置绿色 
-		glColor4ub(0, 255, 0, 255);
-		glVertex3f(0.0f, 2.0f, -10.0f);
 
 		
         // 绘制四边形结束
