@@ -98,9 +98,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         //glBegin(GL_LINE_LOOP); // 绘制前后连接的点组成的线 , 并且收尾相连
         //glBegin(GL_TRIANGLES); // 绘制多个三角形
         //glBegin(GL_TRIANGLE_STRIP); // 绘制 GL_TRIANGLE_STRIP 三角形
+		//glBegin(GL_TRIANGLE_FAN);	// 绘制三角形扇
 
-		// 绘制三角形面
-        glBegin(GL_TRIANGLE_FAN);
+		// 绘制四边形
+        glBegin(GL_QUADS);
 
 		// 1. 设置白色 , glVertex3f (GLfloat x, GLfloat y, GLfloat z)
 		glColor4ub(255, 255, 255, 255);
@@ -108,34 +109,36 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 		// 2. 设置绿色 
 		glColor4ub(0, 255, 0, 255);
-		glVertex3f(-5.0f, -2.0f, -10.0f);
+		glVertex3f(-5.0f, 0.0f, -10.0f);
 
 		// 3. 设置蓝色
 		glColor4ub(0, 0, 255, 255);
-		glVertex3f(-3.0f, -2.0f, -10.0f);
-		
-		// 1. 2. 3. 这三个点会绘制一个三角形 
+		glVertex3f(-5.0f, -2.0f, -10.0f);
 
-		// 4. 设置白色 
-		glColor4ub(255, 255, 255, 255);
-		glVertex3f(-1.0f, -2.0f, -10.0f);
-
-		// 1. 3. 4. 这三个点会绘制一个三角形
-
-		// 5. 设置绿色 
+		// 4. 设置绿色 
 		glColor4ub(0, 255, 0, 255);
-		glVertex3f(1.0f, -2.0f, -10.0f);
+		glVertex3f(0.0f, -2.0f, -10.0f);
 
-		// 1. 4. 5. 这三个点会绘制一个三角形
+		// 上面绘制的是第一个四边形 , 下面是第二个四边形
 
-		// 6. 设置蓝色
+		// 1. 设置白色 , glVertex3f (GLfloat x, GLfloat y, GLfloat z)
+		glColor4ub(255, 255, 255, 255);
+		glVertex3f(0.0f, 4.0f, -10.0f);
+
+		// 2. 设置绿色 
+		glColor4ub(0, 255, 0, 255);
+		glVertex3f(-5.0f, 4.0f, -10.0f);
+
+		// 3. 设置蓝色
 		glColor4ub(0, 0, 255, 255);
-		glVertex3f(3.0f, -2.0f, -10.0f);
+		glVertex3f(-5.0f, 2.0f, -10.0f);
 
-		// 1. 5. 6. 这三个点会绘制一个三角形
+		// 4. 设置绿色 
+		glColor4ub(0, 255, 0, 255);
+		glVertex3f(0.0f, 2.0f, -10.0f);
+
 		
-
-        // 绘制三角形结束
+        // 绘制四边形结束
         glEnd();
 
 		// 将后缓冲区绘制到前台
