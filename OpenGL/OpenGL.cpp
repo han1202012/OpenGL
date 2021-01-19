@@ -60,6 +60,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
+	// 只显示正面 , 不显示背面
+	glEnable(GL_CULL_FACE);
+
+	// 设置顺时针方向 CW : Clock Wind 顺时针方向
+	// 默认是 GL_CCW : Counter Clock Wind 逆时针方向 
+	glFrontFace(GL_CW);
+
     // 主消息循环:
     while (GetMessage(&msg, nullptr, 0, 0))
     {
@@ -85,36 +92,47 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		// 设置线的宽度 
 		glLineWidth(2.0f);
 
-        // 绘制线时, 会将从 glBegin 到 glEnd 之间的所有的点都绘制出来
-        // 可以调用 glVertex3f 方法 成对 设置多条线
-		// 注意必须成对设置 , 如果设置奇数个点 , 最后一个点会被丢弃
-        // 绘制线段开始
-        //glBegin(GL_LINES);
-		//glBegin(GL_LINE_STRIP);
-        glBegin(GL_LINE_LOOP);
+        //glBegin(GL_POINTS);	// 绘制点
+        //glBegin(GL_LINES);	// 绘制线
+		//glBegin(GL_LINE_STRIP);// 绘制前后连接的点组成的线
+        //glBegin(GL_LINE_LOOP); // 绘制前后连接的点组成的线 , 并且收尾相连
+
+		// 绘制三角形面
+        glBegin(GL_TRIANGLES);
         
-        // 绘制线 , 每两个点组成一条线
-		// glVertex3f (GLfloat x, GLfloat y, GLfloat z)
+		// 第一个三角形 ( 注意点是顺时针排列的 )
+
+		// 设置白色 , glVertex3f (GLfloat x, GLfloat y, GLfloat z)
+		glColor4ub(255, 255, 255, 255);
         glVertex3f(0.0f, 0.0f, -10.0f);
-
-		// 设置绿色 
-		glColor4ub(0, 255, 0, 255);
-
-        glVertex3f(-5.0f, 0.0f, -10.0f);
-
-		// 上面的设置会从 (0,0,-10) 坐标向 (-5,0,-10) 坐标绘制一条线
 
 		// 设置蓝色
 		glColor4ub(0, 0, 255, 255);
+		glVertex3f(-5.0f, -2.0f, -10.0f);
 
-        //glVertex3f(-5.0f, 0.0f, -10.0f);
-        glVertex3f(-5.0f, -2.0f, -10.0f);
+		// 设置绿色 
+		glColor4ub(0, 255, 0, 255);
+        glVertex3f(-5.0f, 0.0f, -10.0f);
 
+		// 第二个三角形 ( 注意点是顺时针排列的 )
+
+		// 设置白色 , glVertex3f (GLfloat x, GLfloat y, GLfloat z)
 		glColor4ub(255, 255, 255, 255);
+		glVertex3f(0.0f, 0.0f, -10.0f);
 
-		// 上面的设置会从 (-5,0,-10) 坐标向 (-5,-2,-10) 坐标绘制一条线
+		// 设置绿色 
+		glColor4ub(0, 255, 0, 255);
+		glVertex3f(5.0f, 0.0f, -10.0f);
 
-        // 绘制点结束
+		// 设置蓝色
+		glColor4ub(0, 0, 255, 255);
+		glVertex3f(5.0f, -2.0f, -10.0f);
+
+		
+
+		
+
+        // 绘制三角形结束
         glEnd();
 
 		// 将后缓冲区绘制到前台
