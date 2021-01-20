@@ -100,8 +100,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         //glBegin(GL_TRIANGLE_STRIP); // 绘制 GL_TRIANGLE_STRIP 三角形
 		//glBegin(GL_TRIANGLE_FAN);	// 绘制三角形扇
 
-		// 绘制四边形
-        glBegin(GL_QUAD_STRIP);
+		// 绘制多边形
+        glBegin(GL_POLYGON);
 
 		// 1. 设置白色 , glVertex3f (GLfloat x, GLfloat y, GLfloat z)
 		glColor4ub(255, 255, 255, 255);
