@@ -76,11 +76,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	// 设置点模式 
 	// 设置了该模式后 , 之后的所有图形都会变成点
-	glPolygonMode(GL_FRONT, GL_POINT);
+	//glPolygonMode(GL_FRONT, GL_POINT);
 
 	// 将方形的点变为圆点
-	glEnable(GL_POINT_SMOOTH);
-	glEnable(GL_BLEND);
+	//glEnable(GL_POINT_SMOOTH);
+	//glEnable(GL_BLEND);
 
     // 主消息循环:
     while (GetMessage(&msg, nullptr, 0, 0))
@@ -92,6 +92,25 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
 
 		// 渲染场景
+
+		// 设置单位矩阵
+		glLoadIdentity();
+
+		// 矩阵缩放
+		// 缩放的是下面设置的点的坐标
+		// 每个参数都影响 x , y , z 分量
+		//glScalef(2.0f, 2.0f, 1.0f);
+
+		// 矩阵旋转
+		// glRotatef (GLfloat angle, GLfloat x, GLfloat y, GLfloat z);
+		// 第 1 个参数是旋转角度 , 后面三个参数的值代表是否绕该轴旋转 , 
+		// 如果对应值设置为 1 , 则绕该轴旋转 
+		// 这里设置的是绕 z 轴旋转 30 度
+		//glRotatef(30.0f, 0.0f, 0.0f, 1.0f);
+
+		// 平移变换 
+		// 设置 xyz 三个方向平移的值
+		glTranslatef(0.0f, -2.0f, 0.0f);
 
 		// 清除缓冲区 , 
 		// 使用之前设置的 glClearColor(1.0, 0.0, 0.0, 1.0) 擦除颜色缓冲区
@@ -118,27 +137,22 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         //glBegin(GL_TRIANGLE_STRIP); // 绘制 GL_TRIANGLE_STRIP 三角形
 		//glBegin(GL_TRIANGLE_FAN);	// 绘制三角形扇
 
-		// 绘制多边形
-        glBegin(GL_POLYGON);
+		// 绘制三角形
+        glBegin(GL_TRIANGLES);
 
 		// 1. 设置白色 , glVertex3f (GLfloat x, GLfloat y, GLfloat z)
 		glColor4ub(255, 255, 255, 255);
-        glVertex3f(0.0f, 0.0f, -10.0f);
+        glVertex3f(0.0f, 1.0f, -5.0f);
 
 		// 2. 设置绿色 
 		glColor4ub(0, 255, 0, 255);
-		glVertex3f(-5.0f, 0.0f, -10.0f);
+		glVertex3f(-1.0f, 0.0f, -5.0f);
 
 		// 3. 设置蓝色
 		glColor4ub(0, 0, 255, 255);
-		glVertex3f(-5.0f, -2.0f, -10.0f);
+		glVertex3f(1.0f, 0.0f, -5.0f);
 
-		// 4. 设置绿色 
-		glColor4ub(0, 255, 0, 255);
-		glVertex3f(0.0f, -2.0f, -10.0f);
-
-		
-        // 绘制四边形结束
+        // 绘制三角形结束
         glEnd();
 
 		// 将后缓冲区绘制到前台
