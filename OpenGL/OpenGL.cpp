@@ -67,6 +67,21 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// 默认是 GL_CCW : Counter Clock Wind 逆时针方向 
 	//glFrontFace(GL_CW);
 
+	// 默认模式, 填充模式 , 如果不设置就默认为填充模式
+	//glPolygonMode(GL_FRONT, GL_FILL);
+
+	// 设置线框模式 
+	// 设置了该模式后 , 之后的所有图形都会变成线
+	//glPolygonMode(GL_FRONT, GL_LINE);
+
+	// 设置点模式 
+	// 设置了该模式后 , 之后的所有图形都会变成点
+	glPolygonMode(GL_FRONT, GL_POINT);
+
+	// 将方形的点变为圆点
+	glEnable(GL_POINT_SMOOTH);
+	glEnable(GL_BLEND);
+
     // 主消息循环:
     while (GetMessage(&msg, nullptr, 0, 0))
     {
@@ -89,8 +104,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         // 下面设置的含义是白色, 绘制点的时候, 每次都使用白色绘制
         glColor4ub(255, 255, 255, 255);
 
+		// 设置当前点的大小
+		glPointSize(5.0f);
+
 		// 设置线的宽度 
-		glLineWidth(2.0f);
+		glLineWidth(5.0f);
 
         //glBegin(GL_POINTS);	// 绘制点
         //glBegin(GL_LINES);	// 绘制线
@@ -118,16 +136,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		// 4. 设置绿色 
 		glColor4ub(0, 255, 0, 255);
 		glVertex3f(0.0f, -2.0f, -10.0f);
-
-
-
-		// 5. 设置白色 , glVertex3f (GLfloat x, GLfloat y, GLfloat z)
-		glColor4ub(255, 255, 255, 255);
-		glVertex3f(0.0f, 4.0f, -10.0f);
-
-		// 6. 设置绿色 
-		glColor4ub(0, 255, 0, 255);
-		glVertex3f(-5.0f, 4.0f, -10.0f);
 
 		
         // 绘制四边形结束
