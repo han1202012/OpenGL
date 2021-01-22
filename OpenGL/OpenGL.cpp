@@ -94,10 +94,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		// 渲染场景
 
 		// 设置单位矩阵
-		glLoadIdentity();
+		//glLoadIdentity();
 
 		// 矩阵压栈 
-		//glPushMatrix();
+		glPushMatrix();
 
 		// 矩阵缩放
 		// 缩放的是下面设置的点的坐标
@@ -109,11 +109,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		// 第 1 个参数是旋转角度 , 后面三个参数的值代表是否绕该轴旋转 , 
 		// 如果对应值设置为 1 , 则绕该轴旋转 
 		// 这里设置的是绕 z 轴旋转 30 度
-		//glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
+		glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
 
 		// 平移变换 
 		// 设置 xyz 三个方向平移的值
-		//glTranslatef(0.0f, -2.0f, 0.0f);
+		glTranslatef(0.0f, -2.0f, 0.0f);
 
 		// 清除缓冲区 , 
 		// 使用之前设置的 glClearColor(1.0, 0.0, 0.0, 1.0) 擦除颜色缓冲区
@@ -159,7 +159,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         glEnd();
 
 		// 矩阵出栈 
-		//glPopMatrix();
+		glPopMatrix();
 
 		// 将后缓冲区绘制到前台
 		SwapBuffers(dc);
