@@ -82,6 +82,46 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//glEnable(GL_POINT_SMOOTH);
 	//glEnable(GL_BLEND);
 
+	// 设置光源颜色 , 黑色 
+	float blackColor[] = {0.0f, 0.0f, 0.0f, 1.0f};
+	float whiteColor[] = {1.0f, 1.0f, 1.0f, 1.0f};
+
+	// 设置环境光 
+	glLightfv(GL_LIGHT0, GL_AMBIENT, whiteColor);
+
+	// 设置漫反射光
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, whiteColor);
+
+	// 设置镜面反射光 
+	glLightfv(GL_LIGHT0, GL_SPECULAR, whiteColor);
+
+	// 设置光源位置 , 最后一位设置成 0 代表该光源无限远
+	float lightPosition[] = { 0.0f, 1.0f, 0.0f, 0.0f };
+	// 设置光源位置 , y 轴无限远位置 
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+
+	// 设置材质
+	float blackMat[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	float greenMat[] = { 0.0f, 1.0f, 0.0f, 1.0f };
+	float blueMat[] = { 0.0f, 0.0f, 1.0f, 1.0f };
+	float whiteMat[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+	// 设置环境光反射材质 , 这里设置为黑色 , 不反射光 , 全都吸收
+	glMaterialfv(GL_FRONT, GL_AMBIENT, greenMat);
+
+	// 设置漫反射光反射材质 , 这里设置为黑色 , 不反射光 , 全都吸收
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, blueMat);
+
+	// 设置镜面反射光反射材质 , 这里设置为黑色 , 不反射光 , 全都吸收
+	glMaterialfv(GL_FRONT, GL_SPECULAR, blueMat);
+
+
+	// 启用光照
+	glEnable(GL_LIGHTING);
+
+	// 设置光源 , 0 号光源使用的是默认材质
+	glEnable(GL_LIGHT0);
+
     // 主消息循环:
     while (GetMessage(&msg, nullptr, 0, 0))
     {
@@ -94,10 +134,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		// 渲染场景
 
 		// 设置单位矩阵
-		//glLoadIdentity();
+		glLoadIdentity();
 
 		// 矩阵压栈 
-		glPushMatrix();
+		//glPushMatrix();
 
 		// 矩阵缩放
 		// 缩放的是下面设置的点的坐标
@@ -109,11 +149,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		// 第 1 个参数是旋转角度 , 后面三个参数的值代表是否绕该轴旋转 , 
 		// 如果对应值设置为 1 , 则绕该轴旋转 
 		// 这里设置的是绕 z 轴旋转 30 度
-		glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
+		//glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
 
 		// 平移变换 
 		// 设置 xyz 三个方向平移的值
-		glTranslatef(0.0f, -2.0f, 0.0f);
+		//glTranslatef(0.0f, -2.0f, 0.0f);
 
 		// 清除缓冲区 , 
 		// 使用之前设置的 glClearColor(1.0, 0.0, 0.0, 1.0) 擦除颜色缓冲区
@@ -143,23 +183,32 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		// 绘制三角形
         glBegin(GL_TRIANGLES);
 
+		// 设置法线
+		glNormal3f(0.0f, -1.0f, 0.0f);
+
 		// 1. 设置白色 , glVertex3f (GLfloat x, GLfloat y, GLfloat z)
 		glColor4ub(255, 255, 255, 255);
-        glVertex3f(0.0f, 1.0f, -5.0f);
+        glVertex3f(-1.0f, -0.5f, -2.0f);
+
+		// 设置法线
+		glNormal3f(0.0f, 1.0f, 0.0f);
 
 		// 2. 设置绿色 
 		glColor4ub(0, 255, 0, 255);
-		glVertex3f(-1.0f, 0.0f, -5.0f);
+		glVertex3f(1.0f, -0.5f, -2.0f);
+
+		// 设置法线
+		glNormal3f(0.0f, 1.0f, 0.0f);
 
 		// 3. 设置蓝色
 		glColor4ub(0, 0, 255, 255);
-		glVertex3f(1.0f, 0.0f, -5.0f);
+		glVertex3f(0.0f, -0.5f, -10.0f);
 
         // 绘制三角形结束
         glEnd();
 
 		// 矩阵出栈 
-		glPopMatrix();
+		//glPopMatrix();
 
 		// 将后缓冲区绘制到前台
 		SwapBuffers(dc);
