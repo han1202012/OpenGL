@@ -13,7 +13,6 @@ unsigned char* LoadFileContent(const char* filePath)
 	if (pFile)
 	{
 
-
 	}
 
 
