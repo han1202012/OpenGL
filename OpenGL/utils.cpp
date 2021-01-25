@@ -47,6 +47,5 @@ unsigned char* LoadFileContent(const char* filePath)
 		fclose(pFile);
 	}
 
-
 	return fileContent;
 }
