@@ -14,7 +14,7 @@ unsigned char* DecodeBMP(unsigned char* bmpFileData, int& width, int& height)
 	{
 		// 像素数据偏移地址是从第 10 个字节开始 ( 从 0 开始计数 )
 		// 宽度是 10 , 11 字节
-		// 高度是 12 , 13 字节
+		// 高度是 12 , 13 字节 
 
 	}
 }
