@@ -5,6 +5,9 @@
 #include "framework.h"
 #include "OpenGL.h"
 
+#include "texture.h"
+#include "utils.h"
+
 // 导入 OpenGL 的个头文件 , 必须先导入 windows.h 头文件之后再导入 opengl 头文件
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -59,6 +62,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_OPENGL));
 
     MSG msg;
+
+	// 读取文件内容
+	// 绝对路径 : "D:\\002_Project\\006_Visual_Studio\\OpenGL\\OpenGL\\test.txt"
+	// Visual Studio 2019 中使用相对路径读取不到文件
+	char* str = (char*)LoadFileContent("D:\\002_Project\\006_Visual_Studio\\OpenGL\\OpenGL\\test.txt");
+	printf("%s\n", str);
+
 
 	// 只显示正面 , 不显示背面
 	//glEnable(GL_CULL_FACE);
